@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sell Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color:  rgb(204, 212, 245);
+            color: #333;
+            display: flex;
+        }
+
+        h2, h3 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .form-container {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            background-color: #fff;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 300px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-header {
+            font-weight: bold;
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .product-time {
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        .product-description {
+            margin: 10px 0;
+            font-size: 1em;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .accepted {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        form {
+            display: inline;
+        }
+
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 60px;
+        }
+
+        .product-grid .product-card {
+            flex: 1 1 calc(30% - 35px);
+            max-width: calc(30% - 35px);
+        }
+
+        @media (max-width: 768px) {
+            .product-grid .product-card {
+                flex: 1 1 calc(50% - 20px);
+                max-width: calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-grid .product-card {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+        }
+
+        input, textarea, select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+               /* Sidebar */
+               .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 200px;
+            background-color: rgb(112, 94, 94); /* Primary: Bright Yellow */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            opacity: 85%;
+        }
+        .sidebar h2 {
+        font-family: 'Pacifico', cursive; /* Signature font style */
+        font-size: 36px;
+        color: #fff; /* Base color for text */
+        text-align: center;
+        padding-bottom: 15px;
+    }
+
+
+
+        .sidebar button {
+            background-color: white; /* Accent: Playful Pink */
+            color: black;
+            border: none;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar button:hover {
+            background-color: #08C2FF;
+            box-shadow: 10px 20px 30px rgba(0, 0, 0,0.4);
+        }
+
+        .sidebar button svg {
+            width: 20px;
+            height: 20px;
+        }
+        /* Adjust the main content area */
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5em;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .back-to-top:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Neighbornet</h2>
+        <button onclick="window.location.href='{% url 'group_page' %}'">Local Buzz</button>
+        <button onclick="window.location.href='{% url 'service_page' %}'">Task Buddies</button>
+        <button onclick="window.location.href='{% url 'business_page' %}'">Local Legends</button>
+        <button onclick="window.location.href='{% url 'sell_page' %}'">Help Nearby</button>
+        <button onclick="window.location.href='{% url 'logout' %}'">Logout</button>
+    </div>
+
+    <div class="main-content">
+        <h2>{{ group.name }} Next Door Deals </h2>
+
+        <div class="container">
+            <div class="form-container">
+                <h3>Post a Product for Sale</h3>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" name="create_product">Post Product</button>
+                </form>
+            </div>
+
+            <h3>Available Products</h3>
+            <div class="product-grid">
+                {% for product in product_announcements %}
+                    <div class="product-card">
+                        <div class="product-header">
+                            {{ product.product_name }} by {{ product.user.username }}
+                            <span class="product-time">{{ product.timestamp|date:"Y-m-d H:i" }}</span>
+                        </div>
+                        <div class="product-description">
+                            {{ product.description }} - ${{ product.price }}
+                        </div>
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" class="product-image" />
+                        {% endif %}
+                        <div>
+                            {% if product.is_requested %}
+                                <p class="accepted">Requested by {{ product.requested_by.username }}</p>
+                            {% else %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                    <button type="submit" name="request_product">Request to Buy</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button class="back-to-top" id="backToTop">↑</button>
+    </div>
+
+    <script>
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) {
+                backToTopBtn.style.display = 'block';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

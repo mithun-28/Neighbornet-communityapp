@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<style>
+    /* General body styling */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, blue, darkblue); /* Darker gradient */
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        animation: fade-in-bg 1.5s ease-in-out;
+    }
+
+    /* Background fade-in animation */
+    @keyframes fade-in-bg {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* Login text on top */
+    h2 {
+        color: #fff;
+        margin-bottom: 20px;
+        font-size: 28px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-family: 'Poppins', sans-serif;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Login container styling */
+    form {
+        width: 350px;
+        padding: 70px;
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.1); /* Glass-like texture */
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); /* Deeper shadow */
+        backdrop-filter: blur(12px); /* Glass blur effect */
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        animation: fade-in-container 1s ease-out; /* Fade-in effect */
+    }
+
+    /* Form fade-in animation */
+    @keyframes fade-in-container {
+        from {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    /* Form fields styling */
+    form p {
+        margin-bottom: 15px;
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 14px;
+        color: #fff;
+    }
+
+    form input {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border: none;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+    }
+
+    form input:focus {
+        outline: black;
+        border: 5px solid #fff;
+    }
+
+    /* Button styling */
+    button {
+        width: 105%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    button:hover {
+        background: linear-gradient(135deg, #ff7eb3, #ff758c);
+    }
+
+    /* Navigation to signup page */
+    form a {
+        display: block;
+        margin-top: 15px;
+        text-align: center;
+        font-size: 14px;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    form a:hover {
+        text-decoration: underline;
+    }
+    .app-name {
+        font-family: 'Pacifico', cursive; /* Unique, elegant font style */
+        font-size: 48px;
+        color: #fff; /* White text to stand out against the gradient background */
+        text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 255, 255, 0.8); /* Subtle glowing effect */
+        margin-bottom: 20px;
+        animation: glow-pulse 2s infinite; /* Animation for a glowing effect */
+    }
+
+    /* Glow animation */
+    @keyframes glow-pulse {
+        0%, 100% {
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        50% {
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 1);
+        }
+    }
+    
+</style>
+<body>
+    <h1 class="app-name">Neighbornet</h1>
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+        <a href="{% url 'signup' %}">Dont have an account Regsiter Now</a>
+    </form>
+</body>
+</html>

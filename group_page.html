@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Chat - Neighbornet</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background-color: rgb(204, 212, 245);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: rgb(112, 94, 94); /* Primary: Bright Yellow */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            opacity: 85%;
+        }
+        .sidebar h2 {
+        font-family: 'Pacifico', cursive; /* Signature font style */
+        font-size: 36px;
+        color: #fff; /* Base color for text */
+        text-align: center;
+        padding-bottom: 15px;
+    }
+
+
+
+        .sidebar button {
+            background-color: white; /* Accent: Playful Pink */
+            color: black;
+            border: none;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar button:hover {
+            background-color: #08C2FF;
+            box-shadow: 10px 20px 30px rgba(0, 0, 0,0.4);
+        }
+
+        .sidebar button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 270px;
+            padding: 20px;
+            flex-grow: 1;
+            background-color: rgb(204, 212, 245);
+            overflow-y: auto;
+        }
+
+        .main-content h2 {
+            font-size: 2.2em;
+            color: red;
+            margin-bottom: 20px;
+        }
+
+        /* Announcement Form */
+        .announcement-form h3 {
+            font-size: 1.5em;
+            color: black;
+            margin-bottom: 15px;
+        }
+
+        .announcement-form textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+        }
+
+        .announcement-form button {
+            background-color: #009688;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .announcement-form button:hover {
+            background-color: #00796b;
+        }
+
+        /* Announcements Section */
+        .announcement-box {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .announcement-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .announcement-time {
+            font-size: 0.9em;
+            color: gray;
+        }
+
+        .announcement-body {
+            font-size: 1.1em;
+            color: #333;
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f1f1f1;
+            margin-top: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                margin-left: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Neighbornet</h2>
+        <button onclick="window.location.href='{% url 'service_page' %}'">Task Buddies</button>
+        <button onclick="window.location.href='{% url 'sell_page' %}'">Next Door Deals</button>
+        <button onclick="window.location.href='{% url 'business_page' %}'">Local Legends</button>
+        <button onclick="window.location.href='{% url 'sell_page' %}'">Help Nearby</button>
+        <button onclick="window.location.href='{% url 'logout' %}'">Logout</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h2>Welcome to the {{ group.name }} Group</h2>
+
+        <!-- Announcement Form -->
+        <div class="announcement-form">
+            <h3>Make your Buzz</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Post your Buzz</button>
+            </form>
+        </div>
+
+        <!-- Announcements -->
+        <h3>Local Buzz</h3>
+        {% for announcement in announcements %}
+            <div class="announcement-box">
+                <div class="announcement-header">
+                    <span>{{ announcement.user.username }}</span>
+                    <span class="announcement-time">{{ announcement.timestamp|date:"Y-m-d H:i" }}</span>
+                </div>
+                <div class="announcement-body">
+                    {{ announcement.message }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
